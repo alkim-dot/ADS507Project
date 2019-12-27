@@ -1,0 +1,52 @@
+import pandas as pd
+import folium
+import csv
+
+with open('stateEsso2.csv', 'w', newline = '') as file:
+    writer = csv.writer(file)
+    writer.writerow(["State", "NumberOfEsso"])
+    writer.writerow(["0","60"])
+    writer.writerow(["1","60"])
+    writer.writerow(["3","2"])
+    writer.writerow(["2","22"])
+    writer.writerow(["8","60"])
+    writer.writerow(["5","33"])
+    writer.writerow(["6","60"])
+    writer.writerow(["7","60"])
+    writer.writerow(["4","10"])
+    writer.writerow(["9","60"])
+    writer.writerow(["10","60"])
+    writer.writerow(["11","54"])
+    writer.writerow(["13","60"])
+    writer.writerow(["12","60"])
+    writer.writerow(["14","60"])
+    writer.writerow(["15","60"])
+file.close()
+
+
+url = 'https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/master/2_bundeslaender/'
+state_geo = f'{url}/1_sehr_hoch.geojson' #coordinat
+state_numberesoo = 'stateEsso.csv' #values with id 
+state_data = pd.read_csv(state_numberesoo)
+
+
+statemap = folium.Map(location=[48, -102], zoom_start=3)
+
+
+folium.Choropleth(
+    geo_data=state_geo,
+    name='choropleth',
+    data=state_data,
+    columns=['State', 'NumberOfEsso'],
+    key_on='feature.id',
+    fill_color='BuPu',
+    fill_opacity=0.7,
+    line_opacity=5,
+    legend_name='NumberOfEsso', 
+).add_to(statemap)
+
+folium.LayerControl().add_to(statemap)
+
+
+
+statemap.save("statemap.html")
