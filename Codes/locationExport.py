@@ -7,7 +7,7 @@ query_result_next_page = None
 invalid_requests_found = 0
 request_count = 0
 
-API_KEY = 'AIzaSyD_4AJz6aSbnh6u_54shNpPOVt7867FNWM'
+API_KEY = 'yourkey'
 google_places = GooglePlaces(API_KEY)
 
 with open("essoLocations.csv", mode='w', newline='') as locationsFile:
